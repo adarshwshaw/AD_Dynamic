@@ -61,7 +61,7 @@ unsigned long long ad_dyn_asSize_t(dynamic d);
 
 // char* / str
 _Bool ad_dyn_isStr(dynamic d);
-dynamic ad_dyn_create_Str(char* d);
+dynamic ad_dyn_create_Str(const char* d);
 char* ad_dyn_asStr(dynamic d);
 
 // ptr

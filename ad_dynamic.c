@@ -153,9 +153,11 @@ unsigned long long ad_dyn_asSize_t(dynamic d){
 _Bool ad_dyn_isStr(dynamic d){
     return dyn_isType(d,AD_DYN_STR);
 }
-dynamic ad_dyn_create_Str(char* d){
+dynamic ad_dyn_create_Str(const char* d){
     dynamic c = AD_DYN_EXP_MASK;
     c = ad_dyn_setVal(ad_dyn_setType(c,AD_DYN_STR),AD_DYN_AS_DYNAMIC(d));
+    printf("%X\n",d);
+    printf("%llX\n", c);
     return c;
 }
 char* ad_dyn_asStr(dynamic d){
