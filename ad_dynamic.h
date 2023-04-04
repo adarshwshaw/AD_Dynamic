@@ -20,7 +20,8 @@ typedef enum {
     AD_DYN_Size_t,
     AD_DYN_STR,
     AD_DYN_PTR,
-    AD_DYN_NAN
+    AD_DYN_NAN,
+    AD_DYN_ARR
 }ad_dyn_types;
 
 dynamic ad_dyn_setVal(dynamic d, dynamic val);

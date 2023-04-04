@@ -156,8 +156,6 @@ _Bool ad_dyn_isStr(dynamic d){
 dynamic ad_dyn_create_Str(const char* d){
     dynamic c = AD_DYN_EXP_MASK;
     c = ad_dyn_setVal(ad_dyn_setType(c,AD_DYN_STR),AD_DYN_AS_DYNAMIC(d));
-    printf("%X\n",d);
-    printf("%llX\n", c);
     return c;
 }
 char* ad_dyn_asStr(dynamic d){
@@ -168,7 +166,7 @@ char* ad_dyn_asStr(dynamic d){
 
 // ptr
 _Bool ad_dyn_isPtr(dynamic d){
-    return dyn_isType(d,AD_DYN_STR);
+    return dyn_isType(d,AD_DYN_PTR) || dyn_isType(d,AD_DYN_ARR);
 }
 dynamic ad_dyn_create_Ptr(void* d){
     dynamic c = AD_DYN_EXP_MASK;
