@@ -53,6 +53,12 @@ void ad_dyn_print(dynamic d){
     }
 }
 
+// null
+dynamic ad_dyn_create_null(){
+    dynamic c = AD_DYN_EXP_MASK;
+    c = ad_dyn_setVal(ad_dyn_setType(c,AD_DYN_NULL),1);
+    return c;
+}
 // double and float
 _Bool ad_dyn_isDouble(dynamic d){
     _Bool isbox = (d&AD_DYN_EXP_MASK) == AD_DYN_EXP_MASK;
@@ -166,7 +172,7 @@ char* ad_dyn_asStr(dynamic d){
 
 // ptr
 _Bool ad_dyn_isPtr(dynamic d){
-    return dyn_isType(d,AD_DYN_PTR) || dyn_isType(d,AD_DYN_ARR);
+    return dyn_isType(d,AD_DYN_PTR);
 }
 dynamic ad_dyn_create_Ptr(void* d){
     dynamic c = AD_DYN_EXP_MASK;
@@ -175,6 +181,21 @@ dynamic ad_dyn_create_Ptr(void* d){
 }
 void* ad_dyn_asPtr(dynamic d){
     assert(ad_dyn_isPtr(d) && "ERROR: Type mismatch not a pointer");
+    void* c= (void*) (d&AD_DYN_VAL_MASK);
+    return c;
+}
+
+// array
+_Bool ad_dyn_isArray(dynamic d){
+    return dyn_isType(d,AD_DYN_ARR);
+}
+dynamic ad_dyn_create_Array(void* d){
+    dynamic c = AD_DYN_EXP_MASK;
+    c = ad_dyn_setVal(ad_dyn_setType(c,AD_DYN_ARR),AD_DYN_AS_DYNAMIC(d));
+    return c;
+}
+void* ad_dyn_asArray(dynamic d){
+    assert(ad_dyn_isPtr(d) && "ERROR: Type mismatch not a array");
     void* c= (void*) (d&AD_DYN_VAL_MASK);
     return c;
 }

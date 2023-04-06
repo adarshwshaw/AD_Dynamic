@@ -30,6 +30,8 @@ ad_dyn_types ad_dyn_getType(dynamic d);
 void ad_dyn_print(dynamic d);
 
 // type specific checker, getter and setter
+// null
+dynamic ad_dyn_create_null();
 // double and float
 _Bool ad_dyn_isDouble(dynamic d);
 dynamic ad_dyn_create_double(double d);
@@ -69,4 +71,9 @@ char* ad_dyn_asStr(dynamic d);
 _Bool ad_dyn_isPtr(dynamic d);
 dynamic ad_dyn_create_Ptr(void* d);
 void* ad_dyn_asPtr(dynamic d);
+
+// array
+_Bool ad_dyn_isArray(dynamic d);
+dynamic ad_dyn_create_Array(void* d);
+void* ad_dyn_asArray(dynamic d);
 #endif //AD_DYNAMIC_INCLUDE_DEFS
