@@ -82,7 +82,7 @@ static _Bool dyn_isType(dynamic d, ad_dyn_types t){
 
 // char
 _Bool ad_dyn_isChar(dynamic d){
-    return dyn_isType(d,AD_DYN_CHAR);
+    return dyn_isType(d,AD_DYN_CHAR) && (!ad_dyn_isDouble(d));
 }
 dynamic ad_dyn_create_Char(char d){
     dynamic c = AD_DYN_EXP_MASK;
@@ -97,7 +97,7 @@ char ad_dyn_asChar(dynamic d){
 
 // bool
 _Bool ad_dyn_isBool(dynamic d){
-    return dyn_isType(d,AD_DYN_BOOL);
+    return dyn_isType(d,AD_DYN_BOOL) && (!ad_dyn_isDouble(d));
 }
 dynamic ad_dyn_create_Bool(_Bool d){
     dynamic c = AD_DYN_EXP_MASK;
@@ -112,7 +112,7 @@ _Bool ad_dyn_asBool(dynamic d){
 
 // int
 _Bool ad_dyn_isInt(dynamic d){
-    return dyn_isType(d,AD_DYN_INT);
+    return dyn_isType(d,AD_DYN_INT) && (!ad_dyn_isDouble(d));
 }
 dynamic ad_dyn_create_Int(int d){
     dynamic c = AD_DYN_EXP_MASK;
@@ -127,7 +127,7 @@ int ad_dyn_asInt(dynamic d){
 
 // unsigned int
 _Bool ad_dyn_isUInt(dynamic d){
-    return dyn_isType(d,AD_DYN_UINT);
+    return dyn_isType(d,AD_DYN_UINT) && (!ad_dyn_isDouble(d));
 }
 dynamic ad_dyn_create_UInt(unsigned int d){
     dynamic c = AD_DYN_EXP_MASK;
@@ -142,7 +142,7 @@ unsigned int ad_dyn_asUInt(dynamic d){
 
 // unsigned long long
 _Bool ad_dyn_isSize_t(dynamic d){
-    return dyn_isType(d,AD_DYN_Size_t);
+    return dyn_isType(d,AD_DYN_Size_t) && (!ad_dyn_isDouble(d));
 }
 dynamic ad_dyn_create_Size_t(unsigned long long d){
     dynamic c = AD_DYN_EXP_MASK;
@@ -157,7 +157,7 @@ unsigned long long ad_dyn_asSize_t(dynamic d){
 
 // char* / str
 _Bool ad_dyn_isStr(dynamic d){
-    return dyn_isType(d,AD_DYN_STR);
+    return dyn_isType(d,AD_DYN_STR) && (!ad_dyn_isDouble(d));
 }
 dynamic ad_dyn_create_Str(const char* d){
     dynamic c = AD_DYN_EXP_MASK;
@@ -172,7 +172,7 @@ char* ad_dyn_asStr(dynamic d){
 
 // ptr
 _Bool ad_dyn_isPtr(dynamic d){
-    return dyn_isType(d,AD_DYN_PTR);
+    return dyn_isType(d,AD_DYN_PTR) && (!ad_dyn_isDouble(d));
 }
 dynamic ad_dyn_create_Ptr(void* d){
     dynamic c = AD_DYN_EXP_MASK;
@@ -187,7 +187,7 @@ void* ad_dyn_asPtr(dynamic d){
 
 // array
 _Bool ad_dyn_isArray(dynamic d){
-    return dyn_isType(d,AD_DYN_ARR);
+    return dyn_isType(d,AD_DYN_ARR) && (!ad_dyn_isDouble(d));
 }
 dynamic ad_dyn_create_Array(void* d){
     dynamic c = AD_DYN_EXP_MASK;
