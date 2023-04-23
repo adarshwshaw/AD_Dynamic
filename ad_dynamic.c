@@ -195,7 +195,7 @@ dynamic ad_dyn_create_Array(void* d){
     return c;
 }
 void* ad_dyn_asArray(dynamic d){
-    assert(ad_dyn_isPtr(d) && "ERROR: Type mismatch not a array");
+    assert(ad_dyn_isArray(d) && "ERROR: Type mismatch not a array");
     void* c= (void*) (d&AD_DYN_VAL_MASK);
     return c;
 }
