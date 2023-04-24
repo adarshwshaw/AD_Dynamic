@@ -16,7 +16,7 @@ ad_dyn_types ad_dyn_getType(dynamic d){
     d = (d&AD_DYN_TYPE_MASK)>>48;
     return (ad_dyn_types)d;
 }
-void ad_dyn_print(dynamic d){
+void ad_dyn_print(dynamic d, void (*print_complex)(void*)){
     if (ad_dyn_isDouble(d)){
         printf("%lf",*(double*)&d);
         return ;
@@ -45,15 +45,34 @@ void ad_dyn_print(dynamic d){
         printf("%s",ad_dyn_asStr(d));
         break;
     case AD_DYN_PTR:
-        printf("%p",ad_dyn_asPtr(d));
+        if (!print_complex)
+            printf("OBJECT(%p)",ad_dyn_asPtr(d));
+        else
+            print_complex(ad_dyn_asPtr(d));
         break;
+    case AD_DYN_ARR:
+        if (!print_complex)
+            printf("ARRAY(%p)",ad_dyn_asArray(d));
+        else
+            print_complex(ad_dyn_asArray(d));
     default:
         assert(0 && "print not implemented");
         break;
     }
 }
 
+static _Bool dyn_isType(dynamic d, ad_dyn_types t){
+    if(ad_dyn_getType(d) == t)
+        return 1;
+    else
+        return 0;
+}
+
 // null
+
+_Bool ad_dyn_isNull(dynamic d){
+    return dyn_isType(d,AD_DYN_NULL) && (!ad_dyn_isDouble(d));
+}
 dynamic ad_dyn_create_null(){
     dynamic c = AD_DYN_EXP_MASK;
     c = ad_dyn_setVal(ad_dyn_setType(c,AD_DYN_NULL),1);
@@ -73,12 +92,6 @@ double ad_dyn_asDouble(dynamic d){
     return *(double*)&d;
 }
 
-static _Bool dyn_isType(dynamic d, ad_dyn_types t){
-    if(ad_dyn_getType(d) == t)
-        return 1;
-    else
-        return 0;
-}
 
 // char
 _Bool ad_dyn_isChar(dynamic d){

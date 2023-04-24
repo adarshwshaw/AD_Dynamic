@@ -119,7 +119,7 @@
 #include "ad_dynamic.h"
 
 #define LOG(X) {\
-    ad_dyn_print(X);\
+    ad_dyn_print(X,NULL);\
     printf("\n");\
 }
 

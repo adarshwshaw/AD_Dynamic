@@ -27,10 +27,11 @@ typedef enum {
 dynamic ad_dyn_setVal(dynamic d, dynamic val);
 dynamic ad_dyn_setType(dynamic d , ad_dyn_types type);
 ad_dyn_types ad_dyn_getType(dynamic d);
-void ad_dyn_print(dynamic d);
+void ad_dyn_print(dynamic d, void (*print_complex)(void*));
 
 // type specific checker, getter and setter
 // null
+_Bool ad_dyn_isNull(dynamic d);
 dynamic ad_dyn_create_null();
 // double and float
 _Bool ad_dyn_isDouble(dynamic d);
