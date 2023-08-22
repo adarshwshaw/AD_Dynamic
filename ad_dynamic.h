@@ -10,7 +10,15 @@ typedef unsigned long long dynamic;
 #define AD_DYN_TYPE_MASK ((1ULL << 4ULL) - 1ULL) << 48ULL
 
 #define AD_DYN_AS_DYNAMIC(x) *(dynamic*)&x
-
+// pointers are actually 48 bit(6 BYTES) long
+//sign exponent mantissa(52 = 4(unused) + 48)
+//x xxxxxxxxxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+//NAN - exponent bit all 1 and non zero mantissa
+//x 11111111111 xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   
+//xxxx == 1000 (or non zero mantissa with first bit as zero for signalling)
+//Inf - exponent and mantissa all bit to zero +inf/-inf based on sign bit
+//x 11111111111 0000 000000000000000000000000000000000000000000000000     
+//
 typedef enum {
     AD_DYN_NULL = 0,
     AD_DYN_BOOL,
@@ -20,7 +28,7 @@ typedef enum {
     AD_DYN_Size_t,
     AD_DYN_STR,
     AD_DYN_PTR,
-    AD_DYN_NAN,
+    AD_DYN_NAN, //0b1000
     AD_DYN_ARR
 }ad_dyn_types;
 
