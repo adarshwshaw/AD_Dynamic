@@ -27,7 +27,7 @@ void ad_dyn_print(dynamic d, void (*print_complex)(void*)){
         printf("null");
         break;
     case AD_DYN_BOOL:
-        printf("%d", ad_dyn_asBool(d)?1:0);\
+        printf("%s", (ad_dyn_asBool(d)?"true":"false"));
         break;
     case AD_DYN_CHAR:
         printf("%c",ad_dyn_asChar(d));
@@ -119,7 +119,7 @@ dynamic ad_dyn_create_Bool(_Bool d){
 }
 _Bool ad_dyn_asBool(dynamic d){
     assert(ad_dyn_isBool(d) && "ERROR: Type mismatch not a boolean");
-    _Bool c = (_Bool)d;
+    _Bool c = (_Bool)(d&1);
     return c;
 }
 

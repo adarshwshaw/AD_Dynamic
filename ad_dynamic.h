@@ -19,6 +19,16 @@ typedef unsigned long long dynamic;
 //Inf - exponent and mantissa all bit to zero +inf/-inf based on sign bit
 //x 11111111111 0000 000000000000000000000000000000000000000000000000     
 //
+
+#define AD_DYN_CREATE_DYNAMIC(X) _Generic((X), \
+double: ad_dyn_create_double, \
+char: ad_dyn_create_Char, \
+_Bool: ad_dyn_create_Bool, \
+int: ad_dyn_create_Int, \
+unsigned int: ad_dyn_create_UInt, \
+char*: ad_dyn_create_Str, \
+void*: ad_dyn_create_Ptr) (X)
+
 typedef enum {
     AD_DYN_NULL = 0,
     AD_DYN_BOOL,

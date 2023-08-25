@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <stdio.h>
 
 
@@ -128,17 +129,20 @@ int main(int argc, char const *argv[])
     dynamic a = ad_dyn_create_Bool(1);
     dynamic b = ad_dyn_create_Str("hello world");
     b = ad_dyn_create_Str("hello world!!");
+    a = AD_DYN_CREATE_DYNAMIC("make");
     LOG(a);
-    a = ad_dyn_create_Char('c');
+    a = AD_DYN_CREATE_DYNAMIC(ad_dyn_isStr(a));
     LOG(a);
-    a = ad_dyn_create_double(445.7);
-    LOG(a);
-    a = ad_dyn_create_Int(-500);
-    LOG(a);
-    a = ad_dyn_create_UInt(500);
-    LOG(a);
-    a = ad_dyn_create_Size_t(1024*1024);
-    LOG(a);
+    //a = ad_dyn_create_Char('c');
+    //LOG(a);
+    //a = ad_dyn_create_double(445.7);
+    //LOG(a);
+    //a = ad_dyn_create_Int(-500);
+    //LOG(a);
+    //a = ad_dyn_create_UInt(500);
+    //LOG(a);
+    //a = ad_dyn_create_Size_t(1024*1024);
+    //LOG(a);
     
     LOG(b);
     return 0;
