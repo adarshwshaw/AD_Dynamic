@@ -16,49 +16,53 @@ ad_dyn_types ad_dyn_getType(dynamic d){
     d = (d&AD_DYN_TYPE_MASK)>>48;
     return (ad_dyn_types)d;
 }
-void ad_dyn_print(dynamic d, void (*print_complex)(void*)){
+static char scratch[8][256]= {0};
+static int scratch_idx=-1;
+char* ad_dyn_print(dynamic d, void (*print_complex)(void*)){
+    scratch_idx = (scratch_idx++) % 8;
     if (ad_dyn_isDouble(d)){
-        printf("%lf",*(double*)&d);
-        return ;
+        sprintf(scratch[scratch_idx], "%lf",*(double*)&d);
+        return scratch[scratch_idx];
     }
     switch (ad_dyn_getType(d))
     {
     case AD_DYN_NULL:
-        printf("null");
+        sprintf(scratch[scratch_idx],"%s","null");
         break;
     case AD_DYN_BOOL:
-        printf("%s", (ad_dyn_asBool(d)?"true":"false"));
+        sprintf(scratch[scratch_idx],"%s", (ad_dyn_asBool(d)?"true":"false"));
         break;
     case AD_DYN_CHAR:
-        printf("%c",ad_dyn_asChar(d));
+        sprintf(scratch[scratch_idx],"%c",ad_dyn_asChar(d));
         break;
     case AD_DYN_INT:
-        printf("%d",ad_dyn_asInt(d));
+        sprintf(scratch[scratch_idx],"%d",ad_dyn_asInt(d));
         break;
     case AD_DYN_UINT:
-        printf("%u",ad_dyn_asUInt(d));
+        sprintf(scratch[scratch_idx],"%u",ad_dyn_asUInt(d));
         break;
     case AD_DYN_Size_t:
-        printf("%zu",ad_dyn_asSize_t(d));
+        sprintf(scratch[scratch_idx],"%zu",ad_dyn_asSize_t(d));
         break;
     case AD_DYN_STR:
-        printf("%s",ad_dyn_asStr(d));
+        sprintf(scratch[scratch_idx],"%s",ad_dyn_asStr(d));
         break;
     case AD_DYN_PTR:
         if (!print_complex)
-            printf("OBJECT(%p)",ad_dyn_asPtr(d));
+            sprintf(scratch[scratch_idx],"OBJECT(%p)",ad_dyn_asPtr(d));
         else
             print_complex(ad_dyn_asPtr(d));
         break;
     case AD_DYN_ARR:
         if (!print_complex)
-            printf("ARRAY(%p)",ad_dyn_asArray(d));
+            sprintf(scratch[scratch_idx],"ARRAY(%p)",ad_dyn_asArray(d));
         else
             print_complex(ad_dyn_asArray(d));
     default:
         assert(0 && "print not implemented");
         break;
     }
+    return scratch[scratch_idx];
 }
 
 static _Bool dyn_isType(dynamic d, ad_dyn_types t){
